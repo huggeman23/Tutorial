@@ -107,10 +107,11 @@ namespace Tutorial
         {
             DataTable dt = new DataTable();
             
-            double v = (double)dt.Compute(calc, "");
+            var v = dt.Compute(calc, "");
 
+            double.TryParse(v.ToString(), out double w);
             
-            return v;
+            return w;
 
         }
 
