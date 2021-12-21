@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+
 
 namespace Tutorial
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+            Program program = new Program();
             while (true)
             {
-                Console.WriteLine("Whrite 1:normal, 2:advaced or 3:exit");
+                Console.WriteLine("Whrite 1:normal, 2:advaced, 3:array or 4:exit ");
                 string nav = Console.ReadLine();
+                
 
-
-                if (nav == "3") { break; }
-
-                if (nav == "1")
+                if (nav == "4") { break; }
+                switch (nav) 
                 {
+                    case "1":
                     Console.WriteLine("whrite first nuber");
                     double.TryParse(Console.ReadLine(), out double num1);
 
@@ -30,20 +30,46 @@ namespace Tutorial
 
                     double.TryParse(Console.ReadLine(), out double num2);
 
-                    Console.WriteLine(expetion(mat, num1, num2));
+                    Console.WriteLine(program.expetion(mat, num1, num2));
 
-                }
-                //I whanted to include this one eaven though its not the intended way.
-                else if (nav == "2")
-                {
+                        break;
+                    case "2": 
                     Console.WriteLine("whrite the equation you whant to calculate example: 1+3*9=28, (8+9)/2=8.5 , 8+9/2=13.5 ");
                     string eqation = Console.ReadLine();
 
-                    Console.WriteLine(oneRow(eqation));
+                    Console.WriteLine(program.oneRow(eqation));
+                        break;
+                    case "3":
+                        Console.WriteLine("write +-");
+                        string arnav=Console.ReadLine();
+                        Console.WriteLine("write nubers and seperate them with /. use , for decimal nubers ");
+
+                        string[] strArr=Console.ReadLine().Split('/');
+                        double sum = 0;
+                        if("-"==arnav)
+                        {
+                            sum = program.subtraction(strArr);
+                        }
+                        else if ("+" == arnav)
+                        {
+                          sum= program.adition(strArr);
+                       
+                        }
+                        else
+                        {
+                            Console.WriteLine("not valid");
+                        }
+                        Console.WriteLine(sum);
+                        break;
+                    default: 
+                        Console.WriteLine("not valid");
+                        break;
                 }
+
+                
             }
         }
-        static double expetion(string mat, double num1, double num2)
+        public double expetion(string mat, double num1, double num2)
         {
             double equals;
             switch (mat)
@@ -102,9 +128,33 @@ namespace Tutorial
         {
             return Math.Pow(num1, num2);
         }
+        public double adition(string[] numbers)
+        {
+            double[] sum = new double[numbers.Length];
+            for (int i=0; i < numbers.Length; i++)
+            {
+                double.TryParse(numbers[i], out double num);
+                sum[i] = num;
+                
+            }
+            
+            return sum.Sum();
+        }
+        public double subtraction(string[] numbers)
+        {
+            
+            double.TryParse(numbers[0], out double sum);
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                double.TryParse(numbers[i], out double num);
+                sum = sum - num;
+                
+            }
 
+            return sum;
+        }
 
-        static double oneRow(string calc)
+        public double oneRow(string calc)
         {
             DataTable dt = new DataTable();
             double w = 0;
@@ -113,10 +163,12 @@ namespace Tutorial
             {
                 var v = dt.Compute(calc, "");
                 double.TryParse(v.ToString(), out w);
+                
 
-            }catch 
+            }
+            catch(Exception e) 
             {
-                Console.WriteLine("Not valid input");
+                Console.WriteLine(e);
             }
 
             return w;
