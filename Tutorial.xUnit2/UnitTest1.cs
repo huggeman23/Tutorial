@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace Tutorial.xunit
@@ -32,45 +33,34 @@ namespace Tutorial.xunit
             var prog = new Program();
             Assert.Equal(0, prog.oneRow("6,8/2"));
         }
-        [Fact]
-        public void divide()
-        {
-            Assert.Equal(1.1, calc("/", 5.5, 5));
-        }
-        [Fact]
-        public void multipli()
-        {
-            Assert.Equal(25, calc("*", 5, 5));
-        }
-        [Fact]
-        public void adition()
-        {
-            Assert.Equal(10, calc("+", 5, 5));
-        }
-        [Fact]
-        public void subtraction()
-        {
-            Assert.Equal(0, calc("-", 5, 5));
-        }
-        [Fact]
-        public void raisedby()
-        {
-            Assert.Equal(32, calc("^", 2, 5));
-        }
-        [Fact]
-        public void zeroDivide()
-        {
-            Assert.Equal(0, calc("/", 5, 0));
-        }
-        [Fact]
-        public void invalidFigure()
-        {
-            Assert.Equal(0, calc("t", 5, 9));
-        }
-        public double calc(string figure, double num1, double num2)
+        /*[Fact]
+         public void weardexpect()
         {
             var prog = new Program();
-            return prog.expetion(figure, num1, num2);
+
+            var expectedResult = Assert.Throws<ArgumentException>(() => prog.expetion("/",1,0));
+            Assert.Equal("0", expectedResult.Message);
+        }
+        [Fact]
+        public void oneexpect()
+        {
+            var prog = new Program();
+
+            var expectedResult = Assert.Throws<Exception>(() => prog.oneRow("6,8/2"));
+            Assert.Equal("invalid", expectedResult.Message);
+        }*/
+        [Theory]
+        [InlineData("*", 5, 5, 25)]
+        [InlineData("/", 5, 5, 1)]
+        [InlineData("/", 5, 0, 0)]
+        [InlineData("-", 5, 5, 0)]
+        [InlineData("+", 5, 5, 10)]
+        [InlineData("^", 5, 5, 3125)]
+        [InlineData("t", 5, 5, 0)]
+        public void calc(string figure, double num1, double num2, double expected)
+        {
+            var prog = new Program();
+            Assert.Equal(expected, prog.expetion(figure, num1, num2));
         }
     }
 }

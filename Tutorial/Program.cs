@@ -107,8 +107,11 @@ namespace Tutorial
             }
             else
             {
+                 
+                
                 Console.WriteLine("0 is nono");
             }
+            
             return div;
         }
         static double multipli(double num1, double num2)
@@ -166,16 +169,16 @@ namespace Tutorial
                 
 
             }
-            catch(Exception e) 
+            catch 
             {
-                Console.WriteLine(e);
+               
+                
+                Console.WriteLine("not valid input");
             }
 
             return w;
 
         }
-    
-
         
     }
 }
