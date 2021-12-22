@@ -107,7 +107,7 @@ namespace Tutorial
             }
             else
             {
-                 
+                 //throw new ArgumentException("0");
                 
                 Console.WriteLine("0 is nono");
             }
@@ -171,7 +171,7 @@ namespace Tutorial
             }
             catch 
             {
-               
+                //throw new Exception("invalid");
                 
                 Console.WriteLine("not valid input");
             }
@@ -179,6 +179,7 @@ namespace Tutorial
             return w;
 
         }
+     
         
     }
 }

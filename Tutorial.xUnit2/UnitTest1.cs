@@ -33,7 +33,7 @@ namespace Tutorial.xunit
             var prog = new Program();
             Assert.Equal(0, prog.oneRow("6,8/2"));
         }
-        /*[Fact]
+       /* [Fact]
          public void weardexpect()
         {
             var prog = new Program();
@@ -50,13 +50,22 @@ namespace Tutorial.xunit
             Assert.Equal("invalid", expectedResult.Message);
         }*/
         [Theory]
-        [InlineData("*", 5, 5, 25)]
+        [InlineData("*", 5, 5.5, 27.5)]
+        [InlineData("*", -5, -5, 25)]
+        [InlineData("*", -5, 5, -25)]
         [InlineData("/", 5, 5, 1)]
-        [InlineData("/", 5, 0, 0)]
+        [InlineData("/", 5, 0, 0)] 
+        [InlineData("/", -5, -5, 1)]
+        [InlineData("/", 5, -5, -1)]
         [InlineData("-", 5, 5, 0)]
+        [InlineData("-", -5, -5, 0)]
         [InlineData("+", 5, 5, 10)]
+        [InlineData("+", -5, -5, -10)]
         [InlineData("^", 5, 5, 3125)]
+        [InlineData("^", -5, -5,-0.00032)]
+        [InlineData("^", 5, -5, 0.00032)]
         [InlineData("t", 5, 5, 0)]
+         
         public void calc(string figure, double num1, double num2, double expected)
         {
             var prog = new Program();
